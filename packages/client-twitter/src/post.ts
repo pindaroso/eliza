@@ -29,16 +29,17 @@ Your response should not contain any questions. Brief, concise statements only. 
 
 export class TwitterPostClient extends ClientBase {
     onReady() {
-        const minHours = 0.1;
-        const maxHours = 1;
+        const minMinutes = 15;
+        const maxMinutes = 90;
         const generateNewTweetLoop = () => {
             this.generateNewTweet();
             setTimeout(
                 generateNewTweetLoop,
                 Math.floor(
-                    Math.random() * (maxHours - minHours + 1) + minHours
-                ) * 60 * 60 * 1000
-            ); // Random interval between min and max hours
+                    Math.random() * (maxMinutes - minMinutes + 1) + minMinutes
+                ) * 60 * 1000
+            ); // Random interval between min and max minutes
+        };
         generateNewTweetLoop();
     }
 

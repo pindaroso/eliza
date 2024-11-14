@@ -1,5 +1,7 @@
 #! /bin/bash
 
+set -e
+
 # Source the .env file
 source .env
 
@@ -7,20 +9,17 @@ BLUE=/home/ubuntu/eliza/blue
 GREEN=/home/ubuntu/eliza/green
 TEMP=/home/ubuntu/eliza/temp
 
-ssh -i $PEM $SERVER "rm -rf $TEMP"
-ssh -i $PEM $SERVER "mkdir -p $TEMP"
+rsync -avz -e "ssh -i $PEM" --exclude='node_modules' package.json pnpm-workspace.yaml pnpm-lock.yaml tsconfig.json .npmrc .nvmrc $SERVER:$TEMP
+rsync -avz -e "ssh -i $PEM" --exclude='node_modules' .env.production $SERVER:$TEMP/.env
 
-scp -i $PEM package.json pnpm-workspace.yaml pnpm-lock.yaml tsconfig.json .npmrc .nvmrc $SERVER:$TEMP
-scp -i $PEM .env.production $SERVER:$TEMP/.env
+rsync -avz -e "ssh -i $PEM" --exclude='node_modules' packages $SERVER:$TEMP
+rsync -avz -e "ssh -i $PEM" --exclude='node_modules' characters $SERVER:$TEMP
+rsync -avz -e "ssh -i $PEM" --exclude='node_modules' scripts $SERVER:$TEMP
 
-# TODO: Verify
-# Use rsync to exclude the tweetcache directory
-rsync -avz -e "ssh -i $PEM" --exclude='client-twitter/src/tweetcache' packages $SERVER:$TEMP/packages
+ssh -i $PEM $SERVER "cd $TEMP && pnpm i && pnpm build"
+ssh -i $PEM $SERVER "rm -rf $TEMP/packages/client-twitter/src/tweetcache"
+ssh -i $PEM $SERVER "cp -R $GREEN/packages/client-twitter/src/tweetcache $TEMP/packages/client-twitter/src/tweetcache"
 
-scp -i $PEM -r characters $SERVER:$TEMP/characters
-scp -i $PEM -r scripts $SERVER:$TEMP/scripts
-
-ssh -i $PEM $SERVER "cd $TEMP && pnpm i && pnpm run build"
 ssh -i $PEM $SERVER "rm -rf $BLUE"
 ssh -i $PEM $SERVER "mv $GREEN $BLUE && mv $TEMP $GREEN"
-#ssh -i $PEM $SERVER "cd $GREEN && pm2 pnpm reload --character=./characters/matt_levAIne.character.json --name 'matt_levaine' --update-env"
+#ssh -i $PEM $SERVER "cd $GREEN && pm2 pnpm reload --character=./characters/matt_levaine.character.json --name 'matt_levaine' --update-env"
