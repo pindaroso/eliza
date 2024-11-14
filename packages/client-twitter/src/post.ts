@@ -39,7 +39,6 @@ export class TwitterPostClient extends ClientBase {
                     Math.random() * (maxHours - minHours + 1) + minHours
                 ) * 60 * 60 * 1000
             ); // Random interval between min and max hours
-        };
         generateNewTweetLoop();
     }
 
