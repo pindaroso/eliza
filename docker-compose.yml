@@ -16,7 +16,7 @@ services:
     volumes:
       - tweetcache:/app/packages/client-twitter/src/tweetcache
       - ./characters:/app/characters
-      - ./.env:/app/.env
+      - ./nAIssim_taleb.env:/app/.env
     restart: always
 
 volumes:
