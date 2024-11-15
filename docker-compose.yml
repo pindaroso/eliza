@@ -16,7 +16,16 @@ services:
     volumes:
       - tweetcache:/app/packages/client-twitter/src/tweetcache
       - ./characters:/app/characters
-      - ./nAIssim_taleb.env:/app/.env
+      - ./.env:/app/.env
+    restart: always
+
+  mAIcheal_bloomberg:
+    command: ["pnpm", "start", "--characters=./characters/mAIcheal_bloomberg.character.json"]
+    image: pindaroso/eliza:latest
+    volumes:
+      - tweetcache:/app/packages/client-twitter/src/tweetcache
+      - ./characters:/app/characters
+      - ./.env:/app/.env
     restart: always
 
 volumes:
