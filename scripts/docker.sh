@@ -2,7 +2,7 @@
 
 # Check if an argument is provided
 if [ -z "$1" ]; then
-    echo "Usage: $0 {build|run|start|bash}"
+    echo "Usage: $0 {build|run|start|bash|tag|push}"
     exit 1
 fi
 
@@ -58,9 +58,15 @@ case "$1" in
             exit 1
         fi
         ;;
+    tag)
+        docker tag eliza pindaroso/eliza:latest
+        ;;
+    push)
+        docker push pindaroso/eliza:latest
+        ;;
     *)
         echo "Invalid option: $1"
-        echo "Usage: $0 {build|run|start|bash}"
+        echo "Usage: $0 {build|run|start|bash|tag|push}"
         exit 1
         ;;
 esac

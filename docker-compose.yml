@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  matt_levaine:
+    command: ["pnpm", "start", "--characters=./characters/matt_levaine.character.json"]
+    image: pindaroso/eliza:latest
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./characters:/app/characters
+      - ./.env:/app/.env
