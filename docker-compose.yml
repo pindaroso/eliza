@@ -4,8 +4,20 @@ services:
   matt_levaine:
     command: ["pnpm", "start", "--characters=./characters/matt_levaine.character.json"]
     image: pindaroso/eliza:latest
-    ports:
-      - "3000:3000"
     volumes:
+      - tweetcache:/app/packages/client-twitter/src/tweetcache
       - ./characters:/app/characters
       - ./.env:/app/.env
+    restart: always
+
+  nAIssim_taleb:
+    command: ["pnpm", "start", "--characters=./characters/nAIssim_taleb.character.json"]
+    image: pindaroso/eliza:latest
+    volumes:
+      - tweetcache:/app/packages/client-twitter/src/tweetcache
+      - ./characters:/app/characters
+      - ./.env:/app/.env
+    restart: always
+
+volumes:
+  tweetcache:

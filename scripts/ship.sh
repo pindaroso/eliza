@@ -14,4 +14,5 @@ scp -i $PEM -r characters .env docker-compose.yml $SERVER:$TEMP
 ssh -i $PEM $SERVER "mkdir -p $GREEN"
 ssh -i $PEM $SERVER "rm -rf $BLUE"
 ssh -i $PEM $SERVER "mv $GREEN $BLUE && mv $TEMP $GREEN"
-ssh -i $PEM $SERVER "cd $GREEN && docker compose up -d"
+
+ssh -i $PEM $SERVER "cd $GREEN && docker compose up -d --remove-orphans && docker compose restart"
