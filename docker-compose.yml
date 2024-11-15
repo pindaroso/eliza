@@ -1,32 +1,123 @@
-version: '3.8'
-
 services:
-  matt_levaine:
-    command: ["pnpm", "start", "--characters=./characters/matt_levaine.character.json"]
+  analyst:
+    command: ["pnpm", "start", "--characters=./characters/analyst.character.json"]
     image: pindaroso/eliza:latest
     volumes:
-      - tweetcache:/app/packages/client-twitter/src/tweetcache
+      - analyst:/app/packages/client-twitter/src/tweetcache
+      - analyst:/app/db.sqlite
       - ./characters:/app/characters
       - ./.env:/app/.env
     restart: always
 
-  nAIssim_taleb:
-    command: ["pnpm", "start", "--characters=./characters/nAIssim_taleb.character.json"]
+  asset_manager:
+    command: ["pnpm", "start", "--characters=./characters/asset_manager.character.json"]
     image: pindaroso/eliza:latest
     volumes:
-      - tweetcache:/app/packages/client-twitter/src/tweetcache
+      - asset_manager:/app/packages/client-twitter/src/tweetcache
+      - asset_manager:/app/db.sqlite
       - ./characters:/app/characters
       - ./.env:/app/.env
     restart: always
 
-  mAIcheal_bloomberg:
-    command: ["pnpm", "start", "--characters=./characters/mAIcheal_bloomberg.character.json"]
+  banker:
+    command: ["pnpm", "start", "--characters=./characters/banker.character.json"]
     image: pindaroso/eliza:latest
     volumes:
-      - tweetcache:/app/packages/client-twitter/src/tweetcache
+      - banker:/app/packages/client-twitter/src/tweetcache
+      - banker:/app/db.sqlite
+      - ./characters:/app/characters
+      - ./.env:/app/.env
+    restart: always
+
+  compliance:
+    command: ["pnpm", "start", "--characters=./characters/compliance.character.json"]
+    image: pindaroso/eliza:latest
+    volumes:
+      - compliance:/app/packages/client-twitter/src/tweetcache
+      - compliance:/app/db.sqlite
+      - ./characters:/app/characters
+      - ./.env:/app/.env
+    restart: always
+
+  kol:
+    command: ["pnpm", "start", "--characters=./characters/kol.character.json"]
+    image: pindaroso/eliza:latest
+    volumes:
+      - kol:/app/packages/client-twitter/src/tweetcache
+      - kol:/app/db.sqlite
+      - ./characters:/app/characters
+      - ./.env:/app/.env
+    restart: always
+
+  operations:
+    command: ["pnpm", "start", "--characters=./characters/operations.character.json"]
+    image: pindaroso/eliza:latest
+    volumes:
+      - operations:/app/packages/client-twitter/src/tweetcache
+      - operations:/app/db.sqlite
+      - ./characters:/app/characters
+      - ./.env:/app/.env
+    restart: always
+
+  quant:
+    command: ["pnpm", "start", "--characters=./characters/quant.character.json"]
+    image: pindaroso/eliza:latest
+    volumes:
+      - quant:/app/packages/client-twitter/src/tweetcache
+      - quant:/app/db.sqlite
+      - ./characters:/app/characters
+      - ./.env:/app/.env
+    restart: always
+
+  risk_manager:
+    command: ["pnpm", "start", "--characters=./characters/risk_manager.character.json"]
+    image: pindaroso/eliza:latest
+    volumes:
+      - risk_manager:/app/packages/client-twitter/src/tweetcache
+      - risk_manager:/app/db.sqlite
+      - ./characters:/app/characters
+      - ./.env:/app/.env
+    restart: always
+
+  tech:
+    command: ["pnpm", "start", "--characters=./characters/tech.character.json"]
+    image: pindaroso/eliza:latest
+    volumes:
+      - tech:/app/packages/client-twitter/src/tweetcache
+      - tech:/app/db.sqlite
+      - ./characters:/app/characters
+      - ./.env:/app/.env
+    restart: always
+
+  trader:
+    command: ["pnpm", "start", "--characters=./characters/trader.character.json"]
+    image: pindaroso/eliza:latest
+    volumes:
+      - trader:/app/packages/client-twitter/src/tweetcache
+      - trader:/app/db.sqlite
+      - ./characters:/app/characters
+      - ./.env:/app/.env
+    restart: always
+
+  wealth_manager:
+    command: ["pnpm", "start", "--characters=./characters/wealth_manager.character.json"]
+    image: pindaroso/eliza:latest
+    volumes:
+      - wealth_manager:/app/packages/client-twitter/src/tweetcache
+      - wealth_manager:/app/db.sqlite
       - ./characters:/app/characters
       - ./.env:/app/.env
     restart: always
 
 volumes:
-  tweetcache:
+  analyst:
+  asset_manager:
+  banker:
+  compliance:
+  kol:
+  operations:
+  quant:
+  risk_manager:
+  tech:
+  trader:
+  wealth_manager:
