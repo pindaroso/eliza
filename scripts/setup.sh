@@ -8,4 +8,5 @@ sudo apt update -y
 sudo apt install -y docker-ce docker-ce-cli containerd.io
 sudo apt install -y docker-compose-plugin
 sudo usermod -aG docker ${USER}
+sudo apt install mosh -y
 

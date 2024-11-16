@@ -1,23 +1,23 @@
 services:
   analyst:
-    command: ["pnpm", "start", "--characters=./characters/analyst.character.json"]
     image: pindaroso/eliza:latest
     volumes:
       - analyst:/app/packages/client-twitter/src/tweetcache
       - analyst:/app/db.sqlite
+      - ./packages/adapter-postgres/src:/app/packages/adapter-postgres/src
       - ./characters:/app/characters
       - ./.env:/app/.env
     restart: always
 
-  asset_manager:
-    command: ["pnpm", "start", "--characters=./characters/asset_manager.character.json"]
-    image: pindaroso/eliza:latest
-    volumes:
-      - asset_manager:/app/packages/client-twitter/src/tweetcache
-      - asset_manager:/app/db.sqlite
-      - ./characters:/app/characters
-      - ./.env:/app/.env
-    restart: always
+  #asset_manager:
+  #  image: pindaroso/eliza:latest
+  #  volumes:
+  #    - asset_manager:/app/packages/client-twitter/src/tweetcache
+  #    - asset_manager:/app/db.sqlite
+  #    - ./packages/adapter-postgres/src:/app/packages/adapter-postgres/src
+  #    - ./characters:/app/characters
+  #    - ./.env:/app/.env
+  #  restart: always
 
   #banker:
   #  command: ["pnpm", "start", "--characters=./characters/banker.character.json"]
@@ -39,15 +39,15 @@ services:
   #    - ./.env:/app/.env
   #  restart: always
 
-  #kol:
-  #  command: ["pnpm", "start", "--characters=./characters/kol.character.json"]
-  #  image: pindaroso/eliza:latest
-  #  volumes:
-  #    - kol:/app/packages/client-twitter/src/tweetcache
-  #    - kol:/app/db.sqlite
-  #    - ./characters:/app/characters
-  #    - ./.env:/app/.env
-  #  restart: always
+  kol:
+    command: ["pnpm", "start", "--characters=./characters/kol.character.json"]
+    image: pindaroso/eliza:latest
+    volumes:
+      - kol:/app/packages/client-twitter/src/tweetcache
+      - kol:/app/db.sqlite
+      - ./characters:/app/characters
+      - ./.env:/app/.env
+    restart: always
 
   #operations:
   #  command: ["pnpm", "start", "--characters=./characters/operations.character.json"]
@@ -111,10 +111,10 @@ services:
 
 volumes:
   analyst:
-  asset_manager:
+  #asset_manager:
   #banker:
   #compliance:
-  #kol:
+  kol:
   #operations:
   #quant:
   #risk_manager:
