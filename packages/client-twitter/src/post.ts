@@ -29,18 +29,16 @@ Your response should not contain any questions. Brief, concise statements only. 
 
 export class TwitterPostClient extends ClientBase {
     onReady() {
-        const minMinutes = 15;
-        const maxMinutes = 90;
         const generateNewTweetLoop = () => {
             this.generateNewTweet();
             setTimeout(
                 generateNewTweetLoop,
-                Math.floor(
-                    Math.random() * (maxMinutes - minMinutes + 1) + minMinutes
-                ) * 60 * 1000
-            ); // Random interval between min and max minutes
+                (Math.floor(Math.random() * (4 - 1 + 1)) + 1) * 60 * 60 * 1000
+            ); // Random interval between 1 and 4 hours
         };
+        // setTimeout(() => {
         generateNewTweetLoop();
+        // }, 5 * 60 * 1000); // Wait 5 minutes before starting the loop
     }
 
     constructor(runtime: IAgentRuntime) {
@@ -115,20 +113,20 @@ export class TwitterPostClient extends ClientBase {
 
             const contentLength = 240;
 
-            let content = newTweetContent //.slice(0, contentLength);
+            let content = slice.slice(0, contentLength);
             // if its bigger than 280, delete the last line
-            //if (content.length > 280) {
-            //    content = content.slice(0, content.lastIndexOf("\n"));
-            //}
-            //if (content.length > contentLength) {
-            //    // slice at the last period
-            //    content = content.slice(0, content.lastIndexOf("."));
-            //}
+            if (content.length > 280) {
+                content = content.slice(0, content.lastIndexOf("\n"));
+            }
+            if (content.length > contentLength) {
+                // slice at the last period
+                content = content.slice(0, content.lastIndexOf("."));
+            }
 
-            //// if it's still too long, get the period before the last period
-            //if (content.length > contentLength) {
-            //    content = content.slice(0, content.lastIndexOf("."));
-            //}
+            // if it's still too long, get the period before the last period
+            if (content.length > contentLength) {
+                content = content.slice(0, content.lastIndexOf("."));
+            }
             try {
                 const result = await this.requestQueue.add(
                     async () => await this.twitterClient.sendTweet(content)
